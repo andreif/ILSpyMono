@@ -20,7 +20,7 @@ namespace ILSpyMono
 			if (!File.Exists (DllFile)) {
 				Error ("Assembly file not found: " + DllFile);
 			}
-			if (!Directory.Exists (OutPath)) {
+			if (Directory.Exists (OutPath)) {
 				Console.Out.WriteLine ("WARNING: Output path already exists and will be overwritten: " + OutPath);
 			} else {
 				Directory.CreateDirectory (OutPath);
