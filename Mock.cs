@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Threading;
 using Mono.Cecil;
@@ -88,6 +89,13 @@ namespace ICSharpCode.ILSpy
 		public static MainWindow Instance { get { return instance; } }
 		private static readonly MainWindow instance = new MainWindow();
 	}
+
+	public interface IResourceFileHandler {
+		string EntryType { get; }
+		bool CanHandle(string name, DecompilationOptions options);
+		string WriteResourceToFile(LoadedAssembly assembly, string fileName, Stream stream, DecompilationOptions options);
+	}
+
 	internal static class RevisionClass
 	{
 		public const string Major = "0";
@@ -112,6 +120,7 @@ namespace ICSharpCode.ILSpy
 		internal static CommandLineArguments CommandLineArguments = new CommandLineArguments (new string[0]);
 		public class CompositionContainer {
 			public static void ComposeParts(object obj) {}
+			public static List<T> GetExportedValues<T>() { return new List<T>(); }
 		}
 	}
 
